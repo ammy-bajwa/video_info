@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Video Info</title>
+  </head>
+  <body>
+    <h1>Video Info</h1>
+    <form>
+      <label for="fileUpload">
+        <span>Upload Vide</span>
+        <input type="file" accept="video/*" id="fileUpload" />
+      </label>
+      <button type="submit">Get Info</button>
+    </form>
+    <h2></h2>
+    <script>
+      document.querySelector("form").addEventListener("submit", event => {
+        event.preventDefault();
+        const videoFile = document.querySelector("input").files[0];
+        const videoElement = document.createElement("video");
+        const fileURL = URL.createObjectURL(videoFile);
+        videoElement.src = fileURL;
+        // wait for duration to change from NaN to the actual duration
+        videoElement.ondurationchange = function() {
+          document.querySelector("h2").innerText = `${parseInt(
+            this.duration / 60,
+            10
+          )} minutes`;
+        };
+      });
+    </script>
+  </body>
+</html>
