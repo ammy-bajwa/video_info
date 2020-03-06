@@ -16,6 +16,8 @@
     </form>
     <h2></h2>
     <script>
+      const electron = require("electron");
+      const { ipcRenderer } = electron;
       document.querySelector("form").addEventListener("submit", event => {
         event.preventDefault();
         const videoFile = document.querySelector("input").files[0];
@@ -29,6 +31,10 @@
             10
           )} minutes`;
         };
+      });
+      ipcRenderer.send("myEvent", "my data");
+      ipcRenderer.on("myEventTwo", (event, argTwo) => {
+        console.log("argTwo", argTwo);
       });
     </script>
   </body>
